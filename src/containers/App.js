@@ -9,26 +9,17 @@ import ErrorBoundary from "../components/ErrorBoundary";
 
 
 function App (){
-    // constructor(){
-    //     super();
-    //     this.state={
-    //         robots : [],
-    //         searchfield: ''
-    //     }
-    // }
-
-    // componentDidMount(){
-    //     return fetch("https://jsonplaceholder.typicode.com/users").then(response =>response.json()).then(users => this.setState({robots:users}));
-
-    // }
-    
-
-    
 
     const [robots, setRobots] = useState([]);
     const [searchfield, setSearchfield] = useState('');
-    
-    useEffect(()=>{ fetch("https://jsonplaceholder.typicode.com/users").then(response =>response.json()).then(users =>setRobots(users))}, [] )
+    const [count, setCount] = useState(0)
+
+
+    useEffect(()=>{ 
+        fetch("https://jsonplaceholder.typicode.com/users")
+        .then(response =>response.json())
+        .then(users =>setRobots(users)); 
+        console.log(count)}, [count])
     
     
     const onSearchChange = (event) => {
@@ -44,7 +35,7 @@ function App (){
             return !robots.length ? <h1 className ="tc f0 shadow-5  "> Loading </h1>:(
             <div>
                 <h1 className = "tc light-green f2">RoboFriends</h1>
-
+                    <button className="tc f2" onClick={() => setCount(count+1)}>click me</button>
                         
                         <SearchBox searchChange={onSearchChange}/>
                     <Scroll >
